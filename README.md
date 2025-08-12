@@ -11,6 +11,6 @@ A simple imitaion of general banking systems available.
 
 Pending...
 
-# Status
+## Status
 
-<In motion>
+**In motion**
