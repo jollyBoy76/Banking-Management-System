@@ -1,16 +1,21 @@
-# Banking-Management-System
+# 🏦 Banking Management System
+
+> *A simple yet functional college project inspired by real-world banking systems.*
+
 ---
-/* A simple college project */
+
+## 📜 Description
+
+This project is a **lightweight imitation** of general banking systems — designed for learning purposes and demonstrating basic transaction management.
+
 ---
 
-## Descripton
+## ✨ Features
 
-A simple imitaion of general banking systems available. 
+🚧 *Work in progress...*
 
-## Features 
+---
 
-Pending...
+## 📌 Status
 
-## Status
-
-**In motion**
+🔄 **Currently in development**🔄
