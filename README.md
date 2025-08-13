@@ -12,7 +12,45 @@ This project is a **lightweight imitation** of general banking systems — desig
 
 ## ✨ Features
 
-🚧 *Work in progress...*
+1. Security
+   
+   - Login Credentials
+   - PIN
+
+2. Account Info
+   
+   - Create Account
+   - Account Details (Name, age, etc)
+   - Account Number
+   - Balance
+   - History (temp)
+
+3. Withdrawal & Deposite
+   
+   - via ATM (withdraw)
+   - via Check (withdraw)
+   - cash (deposite)
+   - check (deposite)
+
+4. Transaction & Payments
+   
+   - Withdrawal or deposite
+   - Transaction between A/Cs
+
+5. Help
+   
+   - Login
+   - Alerts
+   - User guide
+   - Contacts
+
+#### 🔬 Experimental Stuff
+
+- Loans
+
+- Chat-bot
+
+- Debit System
 
 ---
 
