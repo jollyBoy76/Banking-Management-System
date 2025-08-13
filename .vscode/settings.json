@@ -1,0 +1,9 @@
+{
+  "code-runner.executorMap": {
+    "cpp": "cls && cd /d \"$workspaceRoot\" && g++ -I include src\\$fileName -o build\\$fileNameWithoutExt.exe && build\\$fileNameWithoutExt.exe"
+  },
+  "code-runner.runInTerminal": true,
+  "code-runner.saveAllFilesBeforeRun": true,
+  "code-runner.clearPreviousOutput": true,
+  "terminal.integrated.defaultProfile.windows": "Command Prompt"
+}
