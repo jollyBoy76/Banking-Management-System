@@ -1,0 +1,69 @@
+
+flowchart TD
+    %% External Entities
+    Customer["Customer<br/>(External Entity)"]
+    ATM["ATM<br/>(External Entity)"]
+    BankStaff["Bank Staff<br/>(External Entity)"]
+    
+    %% Main Processes
+    P1["1.0<br/>Authentication<br/>& Security<br/>(Process)"]
+    P2["2.0<br/>Account<br/>Management<br/>(Process)"]
+    P3["3.0<br/>Transaction<br/>Processing<br/>(Process)"]
+    P4["4.0<br/>Payment<br/>System<br/>(Process)"]
+    P5["5.0<br/>Help &<br/>Support<br/>(Process)"]
+    
+    %% Data Stores
+    DS1[("D1: User<br/>Credentials<br/>(Data Store)")]
+    DS2[("D2: Account<br/>Database<br/>(Data Store)")]
+    DS3[("D3: Transaction<br/>History<br/>(Data Store)")]
+    DS4[("D4: Help<br/>Database<br/>(Data Store)")]
+    
+    %% Customer Interactions
+    Customer -->|"Login Request<br/>(Username + Password)"| P1
+    Customer -->|"Account Info Request"| P2
+    Customer -->|"Deposit Request<br/>(Cash/Check)"| P3
+    Customer -->|"Transfer Request"| P4
+    Customer -->|"Help Request"| P5
+    
+    P1 -->|"Authentication Status<br/>Session Token"| Customer
+    P2 -->|"Account Details<br/>Balance Information"| Customer
+    P3 -->|"Transaction Status<br/>Receipt"| Customer
+    P4 -->|"Payment Confirmation"| Customer
+    P5 -->|"Help Information<br/>User Guide<br/>Contacts"| Customer
+    
+    %% ATM Interactions
+    ATM -->|"PIN + Withdrawal Request"| P1
+    ATM -->|"ATM Transaction Data"| P3
+    P1 -->|"PIN Verification Result"| ATM
+    P3 -->|"Cash Dispensed<br/>Transaction Receipt"| ATM
+    
+    %% Bank Staff Interactions
+    BankStaff -->|"Account Creation Request"| P2
+    BankStaff -->|"Manual Transaction Processing"| P3
+    P2 -->|"Account Creation Status"| BankStaff
+    P3 -->|"Transaction Reports"| BankStaff
+    
+    %% Process to Data Store Interactions
+    P1 <-->|"Validate/Store Credentials"| DS1
+    P2 <-->|"Read/Write Account Data"| DS2
+    P3 <-->|"Log Transaction Records"| DS3
+    P3 <-->|"Update Account Balance"| DS2
+    P4 <-->|"Log Payment Records"| DS3
+    P4 <-->|"Check/Update Balance"| DS2
+    P5 <-->|"Retrieve Help Content"| DS4
+    
+    %% Inter-Process Communication
+    P1 -.->|"Authenticated User ID"| P2
+    P1 -.->|"Authenticated User ID"| P3
+    P1 -.->|"Authenticated User ID"| P4
+    P2 -.->|"Account Validation"| P3
+    P2 -.->|"Account Validation"| P4
+    
+    %% Styling
+    classDef externalEntity fill:#e1f5fe,stroke:#01579b,stroke-width:2px,color:#000
+    classDef process fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px,color:#000
+    classDef dataStore fill:#fff3e0,stroke:#ef6c00,stroke-width:2px,color:#000
+    
+    class Customer,ATM,BankStaff externalEntity
+    class P1,P2,P3,P4,P5 process
+    class DS1,DS2,DS3,DS4 dataStore
