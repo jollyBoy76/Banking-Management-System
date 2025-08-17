@@ -1,6 +1,7 @@
 #include "menu.h"
 #include "account.h"
 #include <iostream>
+#include <limits>
 
 using std::cout;
 using std::cin;
@@ -32,6 +33,12 @@ void Menu::run()
             double amt;
             cout << "\nHow much do you want to deposit?" << endl;
             cin >> amt;
+            if (cin.fail()) {
+                cin.clear(); // clear error flags
+                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // discard invalid input
+                cout << "Invalid input! Please enter a number.\n";
+                break;
+            }
             if(ac.deposit(amt)){
                 std::cout << "Deposit Succesful.\n" << amt << " Rs has been added to your account." << endl;
             } else { 
@@ -44,6 +51,12 @@ void Menu::run()
             double amt;
             cout << "\nHow much do you want to Withdraw?" << endl;
             cin >> amt;
+            if (cin.fail()) {
+                cin.clear(); // clear error flags
+                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // discard invalid input
+                cout << "Invalid input! Please enter a number.\n";
+                break;
+            }
             if (ac.withdraw(amt))
             {
                 std::cout << "Withdrawal Successful.\n" << amt << " Rs has been deducted from your account." << endl;
