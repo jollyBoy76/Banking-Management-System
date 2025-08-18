@@ -1,5 +1,6 @@
 #include "menu.h"
 #include "account.h"
+#include "util.h"
 #include <iostream>
 #include <limits>
 
@@ -16,6 +17,7 @@ void Menu::run()
     do
     {
         // Displaying Menu
+        util::clrscr();     //clearing terminal
         cout << "\n\n__BANKING SYSTEM__" << endl;
         cout << "1. Deposite" << endl;
         cout << "2. Withdraw" << endl;
@@ -25,64 +27,72 @@ void Menu::run()
 
         // Taking choice input
         cout << "\nYour Choice: ";
-        cin >> choice;
+        choice = util::getValidatedInt(1,5);
 
         switch (choice)
         {
         case 1: {
+            util::clrscr();     //clearing terminal
             double amt;
             cout << "\nHow much do you want to deposit?" << endl;
-            cin >> amt;
+            amt = util::getValidatedDouble();
             if (cin.fail()) {
                 cin.clear(); // clear error flags
                 cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // discard invalid input
                 cout << "Invalid input! Please enter a number.\n";
+                util::getscr(); //wait for user to press enter
                 break;
             }
             if(ac.deposit(amt)){
-                std::cout << "Deposit Succesful.\n" << amt << " Rs has been added to your account." << endl;
+                std::cout << "Deposit Succesful.\n" << util::parseCurrency(amt) << " has been added to your account." << endl;
             } else { 
                 std::cout << "Deposit Failed! Enter a Valid Amount." << endl;
             }
+            util::getscr();
             break;
         }
             
         case 2:{
+            util::clrscr();     //clearing terminal
             double amt;
             cout << "\nHow much do you want to Withdraw?" << endl;
-            cin >> amt;
+            amt = util::getValidatedDouble();
             if (cin.fail()) {
                 cin.clear(); // clear error flags
                 cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // discard invalid input
                 cout << "Invalid input! Please enter a number.\n";
+                util::getscr();
                 break;
             }
             if (ac.withdraw(amt))
             {
-                std::cout << "Withdrawal Successful.\n" << amt << " Rs has been deducted from your account." << endl;
+                std::cout << "Withdrawal Successful.\n" << util::parseCurrency(amt) << " Rs has been deducted from your account." << endl;
             } else
             {
                 std::cout << "Withdrawal Failed! Enter a Valid Amount." << endl;
             }
+            util::getscr();
             break;
         }
             
         case 3:
+            util::clrscr();     //clearing terminal
             cout << "\n-----------------------------------" << endl;
-            cout << "Current A/C Balance: " << ac.getBalance() << endl;
+            cout << "Current A/C Balance: " << util::parseCurrency(ac.getBalance()) << endl;
             cout << "-----------------------------------" << endl;
+            util::getscr();
             break;
         case 4:
+            util::clrscr();     //clearing terminal
             cout << "\nPrinting account details...\n" << endl;
             ac.displayDetails();
+            util::getscr();
             break;
         case 5:
+            util::clrscr();     //clearing terminal
             cout << "\nExiting..." << endl;
             break;
         
-        default:
-            cout << "\nInvalid Choice! " << endl;
-            break;
         }
 
     } while (choice != 5);

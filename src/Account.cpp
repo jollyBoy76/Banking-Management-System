@@ -1,4 +1,5 @@
-#include "Account.h"
+#include "account.h"
+#include "util.h"
 #include <iostream>
 
 //class Construtor
@@ -38,7 +39,9 @@ double Account::getBalance() const {
 }
 
 void Account::displayDetails() const {
-    cout << "Account Number: " << accountNumber << "\n";
+    cout << "----------------------------------" << std::endl;
     cout << "Name: " << name << "\n";
-    cout << "Balance: " << balance << "\n";
+    cout << "Account Number: " << accountNumber << "\n";
+    cout << "Balance: " << util::parseCurrency(balance) << "\n";
+    cout << "----------------------------------" << std::endl;
 }

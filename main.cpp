@@ -1,4 +1,5 @@
 #include "menu.h"
+#include "util.h"
 #include <iostream>
 
 int main()
@@ -11,7 +12,6 @@ int main()
     std::cout << "\n...BMS Stopped" << std::endl;
 
     std::cout << "Press Enter to close the Window.";
-    std::cin.ignore(); // ignore leftover input
-    std::cin.get();    // wait for user to press Enter
+    util::getscr();
     return 0;
 }
