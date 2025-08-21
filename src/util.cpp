@@ -4,7 +4,7 @@
 #include <iomanip>      //for using "setprecision"
 #include <cstdlib>      //used to access "system()"
 #include <limits>
-
+#include <regex>
 
 int util::getValidatedInt(int min, int max)
 {
@@ -35,6 +35,22 @@ double util::getValidatedDouble()
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::cout << "Invalid input! \nEnter a valid double: ";
+    }
+}
+
+std::string getValidatedEmail() {
+    std::regex emailPattern(R"(^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$)");
+    std::string email;
+
+    while (true) {
+        std::cout << "Enter your email: ";
+        std::getline(std::cin, email);
+
+        if (std::regex_match(email, emailPattern)) {
+            return email; // valid email
+        } else {
+            std::cout << "Invalid email format. Try again.\n";
+        }
     }
 }
 

@@ -9,6 +9,7 @@
 5. cstdlib
 6. unordered_map
 7. fstream
+8. regex
 
 [Custom HEADERS]
 
