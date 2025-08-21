@@ -5,6 +5,7 @@
 #include <cstdlib>      //used to access "system()"
 #include <limits>
 
+
 int util::getValidatedInt(int min, int max)
 {
     int amt;
@@ -56,6 +57,5 @@ void util::clrscr()
 
 void util::getscr()
 {
-    std::cin.ignore(); // ignore leftover input
-    std::cin.get();    // wait for user to press Enter
+    system("pause > nul");
 }
