@@ -87,10 +87,10 @@ User* User::loadByUsername(const str& username) {
 }
 
 // Save Methods
-void User::loadUsersFromFile(const str filename){
+bool User::loadUsersFromFile(const str filename){
     std::ifstream file(filename); // 1. Open file for reading
     if (!file.is_open())
-        return; // 2. Check if file exists
+        return false; // 2. Check if file exists
 
     str line; // a variable to store the current line
     int max_id = 0;   // stores the maximum id to avoid overwriting
@@ -117,16 +117,20 @@ void User::loadUsersFromFile(const str filename){
     }
     next_userid = max_id + 1;
     file.close();
+    return true;
 }
 
-void User::saveUsersToFile(const str filename){
+bool User::saveUsersToFile(const str filename){
     std::ofstream file(filename);
+    if (!file.is_open())
+        return false; // 2. Check if file exists
     for (const auto &pair : users)
     {
         const User &usr = pair.second;
         file << usr.userID << ';' << usr.getUserName() << ';' << usr.getEmail() << ';' << usr.getPhoneNum() << ';' << usr.getAddress() << ';' << usr.getDOB() << "\n";
     }
     file.close();
+    return true;
 }
 
 // Accounts related to this User
@@ -146,10 +150,10 @@ bool User::passCheck(str pass){
     } else return false;
 }
 
-void User::loadPasswordsFromFile(const str filename){
+bool User::loadPasswordsFromFile(const str filename){
     std::ifstream file(filename); // 1. Open file for reading
     if (!file.is_open())
-        return; // 2. Check if file exists
+        return false; // 2. Check if file exists
 
     str line;
 
@@ -162,16 +166,18 @@ void User::loadPasswordsFromFile(const str filename){
     passwords.emplace(uid, pass);                     // updated passwords
     }
     file.close();
+    return true;
 }
 
-void User::savePasswordsToFile(const str filename){
+bool User::savePasswordsToFile(const str filename){
       std::ofstream file(filename); // 1. Open file for reading
     if (!file.is_open())
-        return; // 2. Check if file exists
+        return false; // 2. Check if file exists
     for (auto it = passwords.begin(); it != passwords.end(); ++it) {
         file << it->first << ';' << it->second << std::endl;
     }
     file.close();
+    return true;
     
 }
 

@@ -47,8 +47,8 @@ public:
     static Account *loadAccByType(int uid, str type);
 
     // Save Methods
-    static void saveAccountsToFile(const str &filename);
-    static void loadAccountsFromFile(const str &filename);
+    static bool saveAccountsToFile(const str &filename);
+    static bool loadAccountsFromFile(const str &filename);
 
     //Returns accounts with same userID (meaning acc created by same user)
     static std::vector<Account*> findByUserID(int uid);
@@ -58,8 +58,8 @@ public:
     const std::vector<std::string>& getHistory() const;
 
     //History Save and load
-    void saveHistoryToFile(const std::string& filename) const;
-    void loadHistoryFromFile(const std::string& filename);
+    bool saveHistoryToFile(const std::string& filename) const;
+    bool loadHistoryFromFile(const std::string& filename);
 
     // User getter
     User* getUser();

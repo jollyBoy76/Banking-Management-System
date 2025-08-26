@@ -13,27 +13,39 @@ typedef std::string str;
 
 // Functions
 
-void load()
+int load()
 {
-    User::loadUsersFromFile("C:/Users/Lnovo/Documents/C++/Projects/Banking_Management_System/data/users.txt");
-    User::loadPasswordsFromFile("C:/Users/Lnovo/Documents/C++/Projects/Banking_Management_System/data/passwords.txt");
-    Account::loadAccountsFromFile("C:/Users/Lnovo/Documents/C++/Projects/Banking_Management_System/data/accounts.txt");
+    bool flag1, flag2, flag3, flag4;
+    flag1 = User::loadUsersFromFile("C:/Users/Lnovo/Documents/C++/Projects/Banking_Management_System/data/users.txt");
+    
+    flag2 = User::loadPasswordsFromFile("C:/Users/Lnovo/Documents/C++/Projects/Banking_Management_System/data/passwords.txt");
+    flag3 = Account::loadAccountsFromFile("C:/Users/Lnovo/Documents/C++/Projects/Banking_Management_System/data/accounts.txt");
     // loads each accounts history
     for (auto& pair : Account::accounts) {
-    pair.second.loadHistoryFromFile(str("data/Account_histories/history_") + std::to_string(pair.first) + str(".txt"));
+    flag4 = pair.second.loadHistoryFromFile(str("data/Account_histories/history_") + std::to_string(pair.first) + str(".txt"));
+    }
+    if(flag1 == false || flag2 == false || flag3 == false || flag4 == false){
+        cerr << "File Not Open!" << endl;
+        return -1;
     }
 
 }
 
-void save()
+int save()
 {
-    User::saveUsersToFile("C:/Users/Lnovo/Documents/C++/Projects/Banking_Management_System/data/users.txt");
-    User::savePasswordsToFile("C:/Users/Lnovo/Documents/C++/Projects/Banking_Management_System/data/passwords.txt");
-    Account::saveAccountsToFile("C:/Users/Lnovo/Documents/C++/Projects/Banking_Management_System/data/accounts.txt");
+    bool flag1, flag2, flag3, flag4;
+    flag1 = User::saveUsersToFile("C:/Users/Lnovo/Documents/C++/Projects/Banking_Management_System/data/users.txt");
+    flag2 = User::savePasswordsToFile("C:/Users/Lnovo/Documents/C++/Projects/Banking_Management_System/data/passwords.txt");
+    flag3 = Account::saveAccountsToFile("C:/Users/Lnovo/Documents/C++/Projects/Banking_Management_System/data/accounts.txt");
     // Saves history of each account
     for (const auto& pair : Account::accounts) {
-        pair.second.saveHistoryToFile(str("data/Account_histories/history_") + std::to_string(pair.first) + str(".txt"));
-    }    
+        flag4 = pair.second.saveHistoryToFile(str("data/Account_histories/history_") + std::to_string(pair.first) + str(".txt"));
+    }
+    if(flag1 == false || flag2 == false || flag3 == false || flag4 == false){
+        cerr << "File Not Open!" << endl;
+        getscr();
+        return -1;
+    }
 }
 
 int main_menu()
@@ -316,7 +328,11 @@ int main()
 {
     int choice, state = 1;
     // Loadind All Users and Accounts
-    load();
+    if(load() == -1){
+        cout << "Fix the file Path!" << endl;
+        getscr();
+        return -1;
+    }
 
     while (state != 0)
     {

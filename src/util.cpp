@@ -84,7 +84,7 @@ str util::getValidatedAddress()
         }
         else
         {
-            std::cout << "Invalid Address format.\nFormat: [street, district, State] \nTry again.\n";
+            std::cout << "Invalid Address format.\nFormat: [Rps more, Danapur, PATNA] \nTry again.\n";
             getscr();
         }
     }

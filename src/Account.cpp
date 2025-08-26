@@ -66,11 +66,11 @@ Account *Account::loadAccByType(int uid, str tp){
 
 // Save Methods
 
-void Account::loadAccountsFromFile(const str &filename)
+bool Account::loadAccountsFromFile(const str &filename)
 {
     std::ifstream file(filename); // 1. Open file for reading
     if (!file.is_open())
-        return; // 2. Check if file exists
+        return false; // 2. Check if file exists
 
     std::string line; // a variable to store the current line
     int max_id = 0;   // stores the max_id to avoid overwriting (source_of_suffering)
@@ -93,17 +93,21 @@ void Account::loadAccountsFromFile(const str &filename)
     }
     next_id = max_id + 1;
     file.close();
+    return true;
 }
 
-void Account::saveAccountsToFile(const str &filename)
+bool Account::saveAccountsToFile(const str &filename)
 {
     std::ofstream file(filename);
+    if (!file.is_open())
+        return false; // 2. Check if file exists
     for (const auto &pair : accounts)
     {
         const Account &acc = pair.second;
         file << acc.ID << ';' << acc.getUserID() << ';' << acc.getBalance() << ';' << acc.getaccType() << "\n";
     }
     file.close();
+    return true;
 }
 
 // Account relationship methods
@@ -139,21 +143,27 @@ const std::vector<std::string>& Account::getHistory() const {
 }
 
 //Save History
-void Account::saveHistoryToFile(const std::string& filename) const {
+bool Account::saveHistoryToFile(const std::string& filename) const {
     std::ofstream file(filename);
+    if (!file.is_open())
+        return false; // 2. Check if file exists
     for (const auto& entry : history) {
         file << entry << "\n";
     }
+    return true;
 }
 
 //Load history
-void Account::loadHistoryFromFile(const std::string& filename) {
+bool Account::loadHistoryFromFile(const std::string& filename) {
     std::ifstream file(filename);
+    if (!file.is_open())
+        return false; // 2. Check if file exists
     std::string line;
     history.clear();    //Clears current history (might come back to bite me in neck)
     while (std::getline(file, line)) {
         history.push_back(line);
     }
+    return true;
 }
 
 

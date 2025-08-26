@@ -62,11 +62,11 @@ public:
 
     static User* loadByUsername(const str& username);
 
-    static void loadUsersFromFile(const str filename);
-    static void loadPasswordsFromFile(const str filename);
+    static bool loadUsersFromFile(const str filename);
+    static bool loadPasswordsFromFile(const str filename);
     
-    static void saveUsersToFile(const str filename);
-    static void savePasswordsToFile(const str filename);
+    static bool saveUsersToFile(const str filename);
+    static bool savePasswordsToFile(const str filename);
 
     //returns all accounts belonging to a user
     std::vector<Account*> getAccounts();
