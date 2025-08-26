@@ -1,2 +1,3 @@
-1,Sachin,550,sachin.sy1441@gmail.com,1234567890,RPS more, Danapur, Patna,16-04-2005
-2,Dhairya,699,sahil.sh231@gmail.com,1235453209,RPS more, Danapur, Patna,21-07-2005
+3;2;1200;Current
+1;1;10400;Current
+2;1;8500;Saving

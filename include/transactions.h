@@ -7,8 +7,8 @@
 
 namespace Transactions
 {
-    bool deposit(Account &ac, double amt);
-    bool withdraw(Account &ac, double amt);
+    bool deposit(Account *ac, double amt);
+    bool withdraw(Account *ac, double amt);
 };
 
 #endif

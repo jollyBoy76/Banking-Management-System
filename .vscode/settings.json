@@ -48,6 +48,12 @@
     "streambuf": "cpp",
     "typeinfo": "cpp",
     "ctime": "cpp",
-    "iomanip": "cpp"
+    "iomanip": "cpp",
+    "bitset": "cpp",
+    "chrono": "cpp",
+    "cstring": "cpp",
+    "map": "cpp",
+    "ratio": "cpp",
+    "regex": "cpp"
   },
 }
