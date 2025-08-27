@@ -1,6 +1,6 @@
 {
   "code-runner.executorMap": {
-    "cpp": "cls && cd /d \"$workspaceRoot\" && g++ -I include main.cpp src\\*.cpp -o build\\BMS.exe && build\\BMS.exe"
+    "cpp": "cls && cd /d \"$workspaceRoot\"  && g++ -I include main.cpp src\\*.cpp -o build\\BMS.exe && build\\BMS.exe"
   },
   "code-runner.runInTerminal": true,
   "code-runner.saveAllFilesBeforeRun": true,
