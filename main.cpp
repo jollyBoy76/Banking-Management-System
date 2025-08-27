@@ -16,10 +16,10 @@ typedef std::string str;
 int load()
 {
     bool flag1, flag2, flag3, flag4;
-    flag1 = User::loadUsersFromFile("C:/Users/Lnovo/Documents/C++/Projects/Banking_Management_System/data/users.txt");
+    flag1 = User::loadUsersFromFile("data/users.txt");
     
-    flag2 = User::loadPasswordsFromFile("C:/Users/Lnovo/Documents/C++/Projects/Banking_Management_System/data/passwords.txt");
-    flag3 = Account::loadAccountsFromFile("C:/Users/Lnovo/Documents/C++/Projects/Banking_Management_System/data/accounts.txt");
+    flag2 = User::loadPasswordsFromFile("data/passwords.txt");
+    flag3 = Account::loadAccountsFromFile("data/accounts.txt");
     // loads each accounts history
     for (auto& pair : Account::accounts) {
     flag4 = pair.second.loadHistoryFromFile(str("data/Account_histories/history_") + std::to_string(pair.first) + str(".txt"));
@@ -34,9 +34,9 @@ int load()
 int save()
 {
     bool flag1, flag2, flag3, flag4;
-    flag1 = User::saveUsersToFile("C:/Users/Lnovo/Documents/C++/Projects/Banking_Management_System/data/users.txt");
-    flag2 = User::savePasswordsToFile("C:/Users/Lnovo/Documents/C++/Projects/Banking_Management_System/data/passwords.txt");
-    flag3 = Account::saveAccountsToFile("C:/Users/Lnovo/Documents/C++/Projects/Banking_Management_System/data/accounts.txt");
+    flag1 = User::saveUsersToFile("data/users.txt");
+    flag2 = User::savePasswordsToFile("data/passwords.txt");
+    flag3 = Account::saveAccountsToFile("data/accounts.txt");
     // Saves history of each account
     for (const auto& pair : Account::accounts) {
         flag4 = pair.second.saveHistoryToFile(str("data/Account_histories/history_") + std::to_string(pair.first) + str(".txt"));
@@ -51,12 +51,14 @@ int save()
 int main_menu()
 {
 clrscr();
-    cout << "__Main Menu__" << endl;
-    cout << "1. Register" << endl;
+    cout << "===============================" << endl;
+    cout << "|| BANKING MANAGEMENT SYSTEM ||" << endl;
+    cout << "===============================" << endl;
+    cout << "\n1. Register" << endl;
     cout << "2. Login" << endl;
     cout << "3. Exit" << endl;
 
-    cout << "Your Choice: ";
+    cout << "\nYour Choice: ";
     int pick = util::getValidatedInt(1, 3);
     return pick;
 }
@@ -138,13 +140,16 @@ User *login()
 
 void userDetails(User *usr)
 {
-    cout << "-------Printing User Details-------" << endl;
-    cout << "Name: " << usr->getUserName() << endl;
+    clrscr();
+    cout << "___________________________________________" << endl;
+    cout << "||              User Details             ||" << endl;
+    cout << "```````````````````````````````````````````" << endl;
+    cout << "\nName: " << usr->getUserName() << endl;
     cout << "Email: " << usr->getEmail() << endl;
     cout << "Phone: " << usr->getPhoneNum() << endl;
     cout << "Address: " << usr->getAddress() << endl;
     cout << "DOB: " << usr->getDOB() << endl;
-    cout << "-----------------------------------" << endl;
+    cout << "\n___________________________________________" << endl;
     getscr();
     clrscr();
 }
@@ -167,13 +172,18 @@ int loadAccount(User* us){
     while(true)
     {
         clrscr();
-        cout << "1. Load by Type" << endl;
-        cout << "2. Load by ID" << endl;
+        std::cout << "___________ Load A/C _____________" << std::endl;
+        cout << "\n1. Load by Type" << endl;
+        cout << "2. Load by A/C Number" << endl;
         cout << "3. Back" << endl;
         cout << "\nEnter Your Choice: ";
         choice = getValidatedInt(1,3);
         if(choice == 1){
+            
             str type = getValidatedAccType();
+            if(type == "Back"){
+                continue;
+            }
             Account* acc = Account::loadAccByType(us->userID, type);
             if(acc == nullptr){
                 cout << "You don't have a "<< type << " account!" << endl;
@@ -189,18 +199,21 @@ int loadAccount(User* us){
 
         }
         else if(choice ==2){
+            clrscr();
             int id;
-            cout << "Enter Account ID: ";
+            std::cout << "___________ Load A/C _____________" << std::endl;
+
+            cout << "\nEnter Account Number: ";
             cin >> id;
             Account* acc = Account::loadAcc(id);
             if(acc == nullptr){
-                cout << "Invalid Account ID!"<< endl;
+                cout << "\nInvalid Account ID!"<< endl;
                 cout << "Try Again." << endl;
                 getscr();
                 continue;
             }
             else{
-                cout << "Account Loaded!" << endl;
+                cout << "\nAccount Loaded!" << endl;
                 getscr();
                 return acc->ID;
             }
@@ -216,12 +229,15 @@ int userMenu(User *user){
     while (true)
     {
         clrscr();
+        cout<< " _______________________________" << endl;
+        cout<< "[__________ USER MENU __________]\n" << endl;
         cout<< "1. Create Account" << endl;
         cout<< "2. Load Account" << endl;
-        cout<< "3. Back" << endl;
+        cout<< "3. User Details" << endl;
+        cout<< "4. Back" << endl;
 
-        cout << "Enter Your Choice: ";
-        int choice = getValidatedInt(1,3);
+        cout << "\nEnter Your Choice: ";
+        int choice = getValidatedInt(1,4);
         int id = -1;
 
         switch (choice)
@@ -245,6 +261,9 @@ int userMenu(User *user){
             }
             break;
         case 3:
+            userDetails(user);
+            break;
+        case 4:
             cerr << "Switching to Main Menu..." << endl;
             getscr();
             return -1;
@@ -254,20 +273,23 @@ int userMenu(User *user){
     
 }
 
-void accountingMenu(int id){
+int accountingMenu(int id){
     int choice;
     double amt;
     Account* acc = Account::loadAcc(id);
-    while (choice != 5)
+    while (choice != 6)
     {
         clrscr();
+        cout << "_________________ "<< acc->getaccType() <<" Account _________________\n" << endl;
         cout << "1. Deposite" << endl;
         cout << "2. Withdraw" << endl;
-        cout << "3. Current Balance" << endl;
-        cout << "4. Account History" << endl;
-        cout << "5. Back" << endl;
+        cout << "3. Transfer" << endl;
+        cout << "4. Current Balance" << endl;
+        cout << "5. Account History" << endl;
+        cout << "6. Back" << endl;
         cout << "\nEnter Your Choice: ";
-        choice = getValidatedInt(1,5);
+        choice = getValidatedInt(1,6);
+        clrscr();
         switch (choice)
         {
         case 1:
@@ -275,8 +297,8 @@ void accountingMenu(int id){
             cout << "Enter ammount: ";
             amt = getValidatedDouble();
             if(Transactions::deposit(acc, amt)){
-                cout << "Deposite Successful! :)" << endl;
-            }   else cout << "Deposite Failed! :()" << endl;
+                cout << "\nDeposite of " << parseCurrency(amt) << " Successful! :)" << endl;
+            }   else cout << "Deposite Failed! :(" << endl;
             cout << "_________________________________________\n" << endl; 
             getscr();
             break;
@@ -286,24 +308,49 @@ void accountingMenu(int id){
             cout << "Enter ammount: ";
             amt = getValidatedDouble();
             if(Transactions::withdraw(acc, amt)){
-                cout << "Withdrawal Successfull!" << endl;
+                cout << "\nWithdrawal of " << parseCurrency(amt) << " Successfull :)" << endl;
             }   else
             {
-            cout << "Withdrawal Failed! :)"<< endl;
+            cout << "Withdrawal Failed!"<< endl;
             cout << "Insuffecient Funds! :("<< endl;
             }
             cout << "___________________________________________\n" << endl;
             getscr();
             break;
-        
+
         case 3:
+            int id;
+            cout << "__ _ _ _ _ _ Transfer Screen _ _ _ _ _ __\n" << endl;
+            cout << "Enter A/C No of receiver's Account: ";
+            cin >> id;
+            if(Account::loadAcc(id) == nullptr){
+                cerr << "Invalid A/C No!" << endl;
+                cerr << "Try Again." << endl;
+                getscr();
+                break;
+            }
+            cout << "\nEnter ammount: ";
+            amt = getValidatedDouble();
+            if(Transactions::transferTo(acc, Account::loadAcc(id), amt)){
+                cout << "\nTranfer of " << parseCurrency(amt) << " to, A/C No: " << std::to_string(id) << ", was Successful." << endl;
+            } else{
+            cout << "Transfer failed!" << endl;
+            cout << "Insuffecient Funds :(" << endl;
+            }
+            cout << "___________________________________________\n" << endl;
+            getscr();
+            break;
+
+        
+        case 4:
             cout << "__ _ _ _ _ _ Current Balance _ _ _ _ _ __\n" << endl;
+            cout << "Account No: "<< acc->ID << endl;
             cout << "Amount: " << parseCurrency(acc->getBalance()) << endl;
             cout << "_________________________________________\n" << endl; 
             getscr();
             break;
             
-        case 4:{
+        case 5:{
             cout << "__ _ _ _ _ _ Account History _ _ _ _ _ __\n" << endl;
             const auto& history = acc->getHistory();
             for (const auto& entry : history) {
@@ -313,13 +360,11 @@ void accountingMenu(int id){
             getscr();
             break;
         }
-        case 5:
-            cout << "Exiting..." << endl;
+        case 6:
+            cout << "\nExiting..." << endl;
             getscr();
             break;
-        
-        default:
-            break;
+            return 1;
         }
     }    
 }
@@ -354,11 +399,14 @@ int main()
             User *user = login();
             if (user != nullptr)
             {
-                cout << "Switching to the User Menu..." << endl;
-                getscr();
-                int accid = userMenu(user);
-                if(accid != -1){
-                    accountingMenu(accid);
+                int accid;
+                while(true){
+                    cout << "Switching to the User Menu..." << endl;
+                    getscr();
+                    accid = userMenu(user);
+                    if(accid != -1){
+                        accountingMenu(accid);
+                    } else break;
                 }
             }
             break;

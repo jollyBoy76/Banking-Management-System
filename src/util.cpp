@@ -125,11 +125,14 @@ str util::getValidatedDOB()
 }
 
 str util::getValidatedAccType(){
-    str types[2] = {"Current","Saving"};
-    std::cout << "1. Current" << std::endl;
+    clrscr();
+    str types[3] = {"Current","Saving","Back"};
+    std::cout << "___________ Load A/C _____________" << std::endl;
+    std::cout << "\n1. Current" << std::endl;
     std::cout << "2. Saving" << std::endl;
+    std::cout << "3. Back" <<std::endl;
     std::cout << "\nEnter your Choice: ";
-    int ch = util::getValidatedInt(1,2);
+    int ch = util::getValidatedInt(1,3);
     return types[ch-1];
 }
 
@@ -162,7 +165,7 @@ str util::getValidatedPassword()
     while (true)
     {
         clrscr();
-        std::cout << "Enter password: ";
+        std::cout << "Enter your password: ";
         std::getline(std::cin, password);
 
         if (isValidPassword(password))
