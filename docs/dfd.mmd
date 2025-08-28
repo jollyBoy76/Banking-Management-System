@@ -1,0 +1,83 @@
+graph TB
+    %% External Entities
+    USER[User/Customer]
+    FILES[(File System)]
+    
+    %% Main Processes
+    MAIN[1.0 Main Menu Controller]
+    REG[2.0 User Registration]
+    LOGIN[3.0 User Login]
+    USERMENU[4.0 User Menu]
+    ACCMENU[5.0 Account Menu]
+    TRANS[6.0 Transaction Processing]
+    
+    %% Data Stores
+    USERSTORE[(D1: User Data Store)]
+    ACCSTORE[(D2: Account Data Store)]
+    PASSSTORE[(D3: Password Data Store)]
+    HISTSTORE[(D4: History Data Store)]
+    
+    %% Data Flows
+    USER -->|Menu Selection| MAIN
+    MAIN -->|Display Main Menu| USER
+    
+    MAIN -->|Registration Request| REG
+    REG -->|User Input Data| USER
+    REG -->|Validate User Data| REG
+    REG -->|Store User Data| USERSTORE
+    REG -->|Store Password| PASSSTORE
+    REG -->|Registration Status| USER
+    
+    MAIN -->|Login Request| LOGIN
+    LOGIN -->|Username/Password| USER
+    LOGIN -->|Validate Credentials| USERSTORE
+    LOGIN -->|Check Password| PASSSTORE
+    LOGIN -->|Login Status| USER
+    
+    LOGIN -->|Authenticated User| USERMENU
+    USERMENU -->|User Menu Options| USER
+    USERMENU -->|User Details| USERSTORE
+    USERMENU -->|Create Account Request| ACCSTORE
+    USERMENU -->|Load Account Request| ACCSTORE
+    
+    USERMENU -->|Selected Account| ACCMENU
+    ACCMENU -->|Account Menu Options| USER
+    ACCMENU -->|Account Data| ACCSTORE
+    ACCMENU -->|Transaction History| HISTSTORE
+    
+    ACCMENU -->|Transaction Request| TRANS
+    TRANS -->|Amount Input| USER
+    TRANS -->|Update Balance| ACCSTORE
+    TRANS -->|Add History Entry| HISTSTORE
+    TRANS -->|Transaction Status| USER
+    
+    %% File Operations
+    FILES -->|Load Users| USERSTORE
+    FILES -->|Load Accounts| ACCSTORE
+    FILES -->|Load Passwords| PASSSTORE
+    FILES -->|Load History| HISTSTORE
+    
+    USERSTORE -->|Save Users| FILES
+    ACCSTORE -->|Save Accounts| FILES
+    PASSSTORE -->|Save Passwords| FILES
+    HISTSTORE -->|Save History| FILES
+    
+    %% Process Details
+    subgraph "Transaction Types"
+        DEPOSIT[Deposit]
+        WITHDRAW[Withdraw]  
+        TRANSFER[Transfer]
+    end
+    
+    TRANS --> DEPOSIT
+    TRANS --> WITHDRAW
+    TRANS --> TRANSFER
+    
+    %% Styling
+    classDef process fill:#e1f5fe
+    classDef datastore fill:#f3e5f5
+    classDef external fill:#e8f5e8
+    
+    class MAIN,REG,LOGIN,USERMENU,ACCMENU,TRANS process
+    class USERSTORE,ACCSTORE,PASSSTORE,HISTSTORE datastore
+    class USER,FILES external
